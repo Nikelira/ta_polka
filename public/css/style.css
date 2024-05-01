@@ -1,0 +1,37 @@
+.logo{
+    width: 150px;
+    height: 70px;
+    -webkit-mask-image:-webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,2) 0%,rgba(0,0,0,2) 50%,rgba(0,0,0,0) 100%);
+    mask-image: radial-gradient(circle, rgba(0,0,0,2) 0%, rgba(0,0,0,2) 90%, rgba(0,0,0,0) 100%);
+}
+
+/* CSS для кнопок переключения */
+.carousel-control-prev,
+.carousel-control-next {
+    color: #000; /* черные кнопки */
+}
+
+/* CSS для плавного переключения */
+.carousel-inner .carousel-item {
+    transition: opacity 0.1s ease-in-out; /* плавное переключение */
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: block;
+}
+
+.carousel-item img {
+    height: 300px; /* Задайте высоту, которая вам подходит */
+    width: 100%;
+    object-fit: cover; /* Используйте object-fit для сохранения пропорций и заполнения контейнера */
+
+    @media (max-width: 768px) {
+        height: 200px; /* высота для мобильных устройств */
+    }
+
+    @media (max-width: 368px) {
+        height: 100px; /* высота для мобильных устройств */
+    }
+}
