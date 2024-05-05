@@ -130,7 +130,7 @@
                 <div class="form-group row">
                     <label for="reg" class="col-md-4 col-form-label text-md-right">У вас уже есть аккаунт?</label>
                     <div class="col-md-6">
-                        <a class="col-md-4 col-form-label text-md-right" href="{{route('auth.index')}}">Войти</a>
+                        <a class="col-md-4 col-form-label text-md-right" href="{{route('login')}}">Войти</a>
                     </div>
                 </div>
             </div>

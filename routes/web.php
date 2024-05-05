@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\MainPage;
@@ -13,24 +12,22 @@ use App\Http\Controllers\Administrator;
 use App\Http\Controllers\Employes;
 use App\Http\Middleware\Role;
 
-Route::get('/', [MainPage::class, 'index'])->middleware('guest')->name('home');
-Route::post('/add_to_cart', [MainPage::class, 'addToCart'])->middleware('guest')->name('add_to_cart');
-Route::get('/clear-cart', [MainPage::class, 'clearCart'])->middleware('guest')->name('clearCart');
-Route::get('/dish/{id}', [MainPage::class, 'getDishInfo'])->middleware('guest')->name('product_ids');
+Route::get('/', [MainPage::class, 'index'])->name('home');
+Route::post('/add_to_cart', [MainPage::class, 'addToCart'])->name('add_to_cart');
+Route::get('/clear-cart', [MainPage::class, 'clearCart'])->name('clearCart');
+Route::get('/dish/{id}', [MainPage::class, 'getDishInfo'])->name('product_ids');
 
+Route::get('/create-order', [MainPage::class, 'СreateOrder'])->name('main.createOrder');//Создание бронирования
 
-Route::get('/products', [ShopController::class, 'index'])->middleware('guest')->name('products');
+Route::get('/products', [ShopController::class, 'index'])->name('products');
+Route::get('/products/category', [ShopController::class, 'productsByCategory'])->name('products.category');
 
 Route::get('/registration', [Registration::class,'index'])->middleware('guest')->name('reg.index');
 Route::post('/registration', [Registration::class,'store'])->middleware('guest')->name('reg.store');
 
-
-
-Route::get('/auth', [Auther::class,'index'])->middleware('guest')->name('auth.index');
+Route::get('/auth', [Auther::class,'index'])->middleware('guest')->name('login');
 Route::post('/auth', [Auther::class,'store'])->middleware('guest')->name('auth.store');
 Route::get('/logout', [Auther::class, 'logout'])->middleware('auth')->name('logout');
-
-
 
 Route::group(['middleware' => Role::class . ':1'], function () {
     Route::get('/main_postavshik', [Postavshic::class, 'index'])->middleware('auth')->name('postavshik.index');

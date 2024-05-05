@@ -20,7 +20,7 @@ class Role
         $user = Auth::user();
 
         if (!$user) {
-            return redirect()->route('auth.index');
+            return redirect()->route('login');
         }
 
         foreach ($roles as $role) {
