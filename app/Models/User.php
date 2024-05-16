@@ -39,9 +39,9 @@ class User extends Authenticatable
         return $this->belongsTo(AccountStatus::class);
     }
 
-    public function bookings()
+    public function orders()
     {
-        return $this->hasMany(Booking::class);
+        return $this->hasMany(Order::class);
     }
 
     public function rentalApplications()

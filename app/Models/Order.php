@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Booking extends Model
+class Order extends Model
 {
     use HasFactory;
 
@@ -14,15 +14,15 @@ class Booking extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function bookingStatus()
+    public function orderStatus()
     {
-        return $this->belongsTo(BookingStatus::class);
+        return $this->belongsTo(OrderStatus::class);
     }
 
     protected $fillable = ['name'];
 
-    public function bookingCompositions()
+    public function orderCompositions()
     {
-        return $this->hasMany(BookingComposition::class);
+        return $this->hasMany(OrderComposition::class);
     }
 }

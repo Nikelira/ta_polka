@@ -35,3 +35,20 @@
         height: 100px; /* высота для мобильных устройств */
     }
 }
+
+/*изображение на карточке*/
+.square-image-wrapper {
+    width: 100%;
+    overflow: hidden;
+    padding-top: 100%; /* Это устанавливает высоту так, чтобы соотношение сторон было 1:1 */
+    position: relative;
+}
+
+.square-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Это обрежет изображение до квадратной формы */
+}

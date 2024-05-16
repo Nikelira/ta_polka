@@ -11,18 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bookings', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->date('date_begin');
-            $table->date('date_end');
-
+            $table->date('date');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            
-            $table->unsignedBigInteger('booking_status_id')->nullable();
-            $table->foreign('booking_status_id')->references('id')->on('booking_statuses');
-            
+            $table->foreign('user_id')->references('id')->on('users');            
+            $table->unsignedBigInteger('order_status_id')->nullable();
+            $table->foreign('order_status_id')->references('id')->on('order_statuses');
+            $table->unsignedBigInteger('payment_id')->nullable();
+            $table->foreign('payment_id')->references('id')->on('payments');            
             $table->double('summa');
+            $table->timestamps();
         });
     }
 

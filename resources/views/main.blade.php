@@ -28,15 +28,21 @@
             @foreach($products as $product)
                 <div class="col-md-3 mb-3">
                     <div class="card ">
-                        <img src="{{ asset('images/')}}/{{$product->photo_path}}" class="card-img-top" alt="{{ $product->name }}">
+                        <div class="square-image-wrapper">
+                            <img src="{{ asset('images/')}}/{{$product->photo_path}}" class="card-img-top square-image" alt="{{ $product->name }}">
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <p class="card-text">{{ $product->cost }} руб.</p>
-                            <form class="add-to-cart-form">
+                            <form class="add-to-cart-form" data-available-quantity="{{ $product->count }}">
                                 @csrf
-                                <input class="item_id" type="hidden" value=" {{$product->id}}">
+                                <input class="item_id" type="hidden" value="{{$product->id}}">
                                 <label for="quantity">Количество в шт.</label>
-                                <input type="number" min="1" class="form-control" placeholder="Leave a comment here" id="quantity" name="quantity" value="1">
+                                <div class="input-group">
+                                    <button type="button" class="btn btn-outline-secondary minus-btn">-</button>
+                                    <input type="number" min="1" class="form-control quantity-input" id="quantity" name="quantity" value="1">
+                                    <button type="button" class="btn btn-outline-secondary plus-btn">+</button>
+                                </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary">Добавить в корзину</button>
                             </form>

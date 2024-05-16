@@ -24,6 +24,9 @@ class Registration extends Controller
         ];
         //валидация значений
         $request->validate([
+            'surname' => 'required|string|max:50',
+            'name' => 'required|string|max:50',
+            'Patronymic' => 'required|string|max:50',
             'login'=> ['required', 'string', 'alpha_dash', 'unique:users'],
             'password'=> 'required|confirmed',
             'agree' => ['required', 'accepted'],

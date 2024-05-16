@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BookingComposition extends Model
+class OrderComposition extends Model
 {
     use HasFactory;
 
@@ -14,8 +14,8 @@ class BookingComposition extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function booking()
+    public function order()
     {
-        return $this->belongsTo(Booking::class);
+        return $this->belongsTo(Order::class);
     }
 }

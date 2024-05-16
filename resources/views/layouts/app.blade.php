@@ -7,10 +7,11 @@
     <title>Магазин "Та Полка"</title>
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link rel="icon" href="{{ asset('icons.png') }}">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navbar-expand-md">
         <div class="container">
             <a class="navbar-brand" href="{{ route('home')}}"><img class="logo img-fluid" src="{{ asset('images/logo.jpg') }}"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,15 +26,33 @@
                         <a class="nav-link" href="{{ route('products')}}">Каталог</a>
                     </li>
                     <li class="nav-item">
-                                <a class="nav-link" href="">Полки</a>
+                                <a class="nav-link" href="{{ route('shelf')}}">Полки</a>
                     </li>
                     @if(Auth::check())
-                        @if(Auth::user()->role_id == 1) <!-- Проверяем роль пользователя -->
+                        @if(Auth::user()->role_id == 2) <!-- Проверяем роль пользователя -->
                             <li class="nav-item">
                                 <a class="nav-link" href="">Забронировать полку</a>
                             </li>
                         @endif
                     @endif
+                    @if(Auth::check())
+                        @if(Auth::user()->role_id == 4) <!-- Проверяем роль пользователя -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Список заявок на аренду</a>
+                            </li>
+                        @endif
+                    @endif
+                    @if(Auth::check())
+                        @if(Auth::user()->role_id == 5) <!-- Проверяем роль пользователя -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('employes.index') }}">Сотрудники</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Договора</a>
+                            </li>
+                        @endif
+                    @endif
+
                     <li class="nav-item">
                             <button type="button" class="btn nav-link" data-bs-toggle="modal" data-bs-target="#basketModal">Корзина</button>
                     </li>
@@ -44,7 +63,13 @@
                                     {{ Auth::user()->name }}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="">Личный кабинет</a>
+                                    <a class="dropdown-item" href="{{ route('cabinet.index')}}">Личный кабинет</a>
+                                    @if(Auth::check())
+                                        @if(Auth::user()->role_id == 3) <!-- Проверяем роль пользователя -->
+                                            <a class="dropdown-item" href="{{ route('products.index1')}}">Управление товарами</a>
+                                        @endif
+                                    @endif
+                                    <a class="dropdown-item" href="{{ route('profile.index')}}">Профиль</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}">Выйти</a>
                                 </div>
                             </div>
@@ -56,7 +81,7 @@
             </div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container nav-offset">
         @yield('content')
     </div>
     <br>
@@ -106,13 +131,9 @@
                             <!-- Итог отображается слева -->
                         </div>
                         <button type="button" class="btn btn-primary" id="clear-cart">Очистить корзину</button>
-                        <button type="button" class="btn btn-primary ml-2">Забронировать</button>
+                        <button type="button" class="btn btn-primary ml-2">Перейти к оформлению</button>
                     </div>
                 </div>
-        <!-- Не работают!!-->
-    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-        <!--  -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -147,13 +168,37 @@
             });
         });
 
+        $('.plus-btn').click(function() {
+        var input = $(this).closest('.input-group').find('.quantity-input');
+        var currentValue = parseInt(input.val());
+        input.val(currentValue + 1);
+        });
+
+        // Обработчик кнопки для уменьшения количества товара
+        $('.minus-btn').click(function() {
+            var input = $(this).closest('.input-group').find('.quantity-input');
+            var currentValue = parseInt(input.val());
+            if (currentValue > 1) {
+                input.val(currentValue - 1);
+            }
+        });
+
         // Отправка блюда в корзину через AJAX
         $('.add-to-cart-form').submit(function(event) {
             event.preventDefault();
 
             var form = $(this);
-            var item_id = form.find('.item_id').val();
-            var quantity = form.find('#quantity').val();
+    var item_id = form.find('.item_id').val();
+    var quantity = parseInt(form.find('#quantity').val());
+
+    // Получаем текущее состояние корзины из локального хранилища
+    var cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+    // Получаем доступное количество товара в базе
+    var availableQuantity = parseInt(form.data('available-quantity'));
+
+    // Получаем количество товара этого типа уже добавленного в корзину
+    var cartQuantity = cart[item_id] || 0;
 
             $.ajax({
                 url: "{{ route('add_to_cart') }}",
@@ -205,7 +250,6 @@
                         </div>
                     </div>
                     `);
-
                     resolve(response.cost * cart[dish_id]);
                 }
             });

@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->date('date_begin');
             $table->date('date_end');
-
             $table->unsignedBigInteger('rental_application_id')->nullable();
             $table->foreign('rental_application_id')->references('id')->on('rental_applications');
-            
             $table->double('summa_contract');
+            $table->timestamps();
         });
     }
 

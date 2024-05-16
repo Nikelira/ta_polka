@@ -25,6 +25,7 @@ return new class extends Migration
             $table->double('cost');
             $table->text('message', 255)->nullable();
             $table->integer('count');
+            $table->timestamps();
         });
     }
 

@@ -3,6 +3,7 @@
 @section('content')
     <div class="container">
         <br>
+        <br>
         <h2 class="mb-4">Товары</h2>
         <div class="row">
             <div class="col-md-3">
@@ -21,7 +22,7 @@
                 <!-- Поисковик по товарам -->
                 <div class="input-group mb-3">
                 <form action="{{ route('products')}}" method="GET" class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Поиск по товарам" aria-label="Поиск по всем товарам" aria-describedby="button-addon2" name="search">
+                    <input type="text" class="form-control" placeholder="Поиск по всем товарам" aria-label="Поиск по всем товарам" aria-describedby="button-addon2" name="search" value="{{$searchTerm}}">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="submit">Поиск</button>
                         <a href="{{ route('products') }}" class="btn btn-outline-secondary">Очистить</a>
@@ -31,16 +32,19 @@
                 <div class="row">    
                     @foreach($products as $product)
                     <div class="col-md-3 mb-3">
-                        <div class="card h-100 d-flex flex-column">
-                            <img src="{{ asset('images/')}}/{{$product->photo_path}}" class="card-img-top" alt="{{ $product->name }}">
+                        <div class="card h-100 d-flex flex-column" data-available-quantity="{{ $product->count }}">
+                            <div class="square-image-wrapper">
+                                <img src="{{ asset('images/')}}/{{$product->photo_path}}" class="card-img-top square-image" alt="{{ $product->name }}">
+                            </div>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <p class="card-text">{{ $product->cost }} руб.</p>
                                 <form class="add-to-cart-form flex-fill">
                                     @csrf
                                     <input class="item_id" type="hidden" value=" {{$product->id}}">
+                                    
                                     <label for="quantity">Количество в шт.</label>
-                                    <input type="number" min="1" class="form-control" placeholder="Leave a comment here" id="quantity" name="quantity" value="1">
+                                    <input type="number" min="1" class="form-control quantity-input" placeholder="Leave a comment here" id="quantity" name="quantity" value="1">
                                     <br>
                                     <button type="submit" class="btn btn-primary mt-auto">Добавить в корзину</button>
                                 </form>

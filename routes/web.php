@@ -1,6 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ShelfController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\MainPage;
 use App\Http\Controllers\Auther;
 use App\Http\Controllers\Registration;
@@ -22,12 +25,21 @@ Route::get('/create-order', [MainPage::class, 'СreateOrder'])->name('main.creat
 Route::get('/products', [ShopController::class, 'index'])->name('products');
 Route::get('/products/category', [ShopController::class, 'productsByCategory'])->name('products.category');
 
+Route::get('/shelf', [ShelfController::class, 'index'])->name('shelf');
+
 Route::get('/registration', [Registration::class,'index'])->middleware('guest')->name('reg.index');
 Route::post('/registration', [Registration::class,'store'])->middleware('guest')->name('reg.store');
 
 Route::get('/auth', [Auther::class,'index'])->middleware('guest')->name('login');
 Route::post('/auth', [Auther::class,'store'])->middleware('guest')->name('auth.store');
 Route::get('/logout', [Auther::class, 'logout'])->middleware('auth')->name('logout');
+
+Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth')->name('profile.index');
+Route::put('/profile/update', [ProfileController::class, 'update'])->middleware('auth')->name('profile.update');
+Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->middleware('auth')->name('profile.delete');
+
+Route::get('/cabinet', [CabinetController::class, 'index'])->middleware('auth')->name('cabinet.index');
+
 
 Route::group(['middleware' => Role::class . ':1'], function () {
     Route::get('/main_postavshik', [Postavshic::class, 'index'])->middleware('auth')->name('postavshik.index');
@@ -39,6 +51,13 @@ Route::group(['middleware' => Role::class . ':2'], function () {
 
 Route::group(['middleware' => Role::class . ':3'], function () {
     Route::get('/main_prodavec', [Prodavec::class, 'index'])->middleware('auth')->name('prodavec.index');
+    Route::get('/prodavec/products', [Prodavec::class, 'index1'])->middleware('auth')->name('products.index1');
+    Route::get('/prodavec//products/create', [Prodavec::class, 'create'])->name('products.create');
+    Route::post('/prodavec//products', [Prodavec::class, 'store'])->name('products.store');
+    Route::get('/prodavec/products/{product}/edit', [Prodavec::class,'edit'])->middleware('auth')->name('products.edit');
+    Route::put('/prodavec/products/{product}', [Prodavec::class,'update'])->middleware('auth')->name('products.update');
+
+
 });
 
 Route::group(['middleware' => Role::class . ':4'], function () {

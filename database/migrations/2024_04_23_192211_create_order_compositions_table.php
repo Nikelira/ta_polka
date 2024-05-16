@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('booking_compositions', function (Blueprint $table) {
+        Schema::create('order_compositions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')->references('id')->on('products');
-            $table->unsignedBigInteger('booking_id')->nullable();
-            $table->foreign('booking_id')->references('id')->on('bookings');
+            $table->unsignedBigInteger('order_id')->nullable();
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->integer('count');
+            $table->timestamps();
         });
     }
 

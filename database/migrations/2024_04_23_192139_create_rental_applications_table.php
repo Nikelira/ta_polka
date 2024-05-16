@@ -14,15 +14,12 @@ return new class extends Migration
         Schema::create('rental_applications', function (Blueprint $table) {
             $table->id();
             $table->date('date_application');
-            
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            
             $table->unsignedBigInteger('application_status_id')->nullable();
             $table->foreign('application_status_id')->references('id')->on('application_statuses');
-
             $table->text('message', 255)->nullable();
-
+            $table->timestamps();
         });
     }
 

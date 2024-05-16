@@ -10846,4 +10846,8 @@ body {
   flex-shrink: 0;
 }
 
+.nav-offset {
+  margin-top: 70px; /* Высота вашей навигационной панели */
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

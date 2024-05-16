@@ -51,9 +51,9 @@ class Auther extends Controller
         //сделать проверку ролей
 
         if ($user->role_id === 1) {
-            return redirect()->route('postavshik.index');
+            return redirect()->back();
         } elseif ($user->role_id === 2) {
-            return redirect()->route('potrebitel.index');
+            return redirect()->back();
         }
         elseif ($user->role_id === 3){
             return redirect()->route('prodavec.index');

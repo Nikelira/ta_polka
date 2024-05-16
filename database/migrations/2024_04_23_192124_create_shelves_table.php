@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('length');
             $table->integer('wigth');
             $table->double('cost');
+            $table->timestamps();
         });
     }
 

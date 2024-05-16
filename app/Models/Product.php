@@ -8,16 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    public function productStatus()
+    
+    public function category()
     {
-        return $this->belongsTo(ProductStatus::class);
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
     }
 
-    public function productCategory()
+    public function status()
     {
-        return $this->belongsTo(ProductCategory::class);
+        return $this->belongsTo(ProductStatus::class, 'product_status_id');
     }
-
+    
     public function rentalApplication()
     {
         return $this->belongsTo(RentalApplication::class);
@@ -25,8 +26,8 @@ class Product extends Model
 
     protected $fillable = ['name'];
 
-    public function bookingCompositions()
+    public function orderCompositions()
     {
-        return $this->hasMany(BookingComposition::class);
+        return $this->hasMany(orderComposition::class);
     }
 }

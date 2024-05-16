@@ -13,13 +13,10 @@ return new class extends Migration
     {
         Schema::create('composition_rental_applications', function (Blueprint $table) {
             $table->id();
-            
             $table->unsignedBigInteger('shelf_id')->nullable();
             $table->foreign('shelf_id')->references('id')->on('shelves');
-            
             $table->unsignedBigInteger('rental_application_id')->nullable();
             $table->foreign('rental_application_id')->references('id')->on('rental_applications');
-
             $table->timestamps();
         });
     }
