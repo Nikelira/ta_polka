@@ -9,6 +9,12 @@ class OrderComposition extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'product_id',
+        'order_id',
+        'count',
+    ];
+
     public function product()
     {
         return $this->belongsTo(Product::class);

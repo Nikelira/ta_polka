@@ -52,3 +52,129 @@
     height: 100%;
     object-fit: cover; /* Это обрежет изображение до квадратной формы */
 }
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-card .card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-card .card-body .mt-auto {
+    margin-top: auto;
+}
+
+.square-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    overflow: hidden;
+}
+
+.square-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Адаптация под мобильные устройства */
+@media (max-width: 767.98px) {
+    .col-6-mobile {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    .square-image-wrapper {
+        padding-top: 100%; /* 1:1 Aspect Ratio for smaller screens */
+    }
+    .square-image {
+        object-fit: cover; /* Ensures the entire image fits within the container */
+    }
+}
+
+
+
+
+
+
+.wardrobe {
+    position: relative;
+    width: 60%; /* Увеличиваем ширину всего шкафа */
+    margin: 0 auto;
+}
+.shelf {
+    width: 100%;
+    height: 100px; /* Увеличиваем высоту полок */
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.shelf.free {
+    background-color: #e0f7fa;
+}
+.shelf.occupied {
+    background-color: #ffebee;
+}
+.shelf-content {
+    text-align: center;
+}
+.shelf-title {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+.btnr {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+}
+.btn-dangerr {
+    left: -40px; /* Расположить кнопку "-" слева */
+}
+.btn-successr {
+    right: -40px; /* Расположить кнопку "+" справа */
+}
+@media (max-width: 768px) {
+    .wardrobe {
+        width: 90%; /* Увеличиваем ширину для планшетов */
+    }
+    .shelf {
+        height: 120px; /* Увеличиваем высоту для планшетов */
+    }
+    .btn-dangerr {
+        left: -30px;
+    }
+    .btn-successr {
+        right: -30px;
+    }
+}
+@media (max-width: 480px) {
+    .wardrobe {
+        width: 100%; /* Увеличиваем ширину для телефонов */
+    }
+    .shelf {
+        height: 150px; /* Увеличиваем высоту для телефонов */
+    }
+    .btn-dangerr {
+        left: -25px; /* Расположить кнопку "-" слева */
+    }
+    .btn-successr {
+        right: -25px; /* Расположить кнопку "+" справа */
+    }
+}

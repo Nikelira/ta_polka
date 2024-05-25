@@ -14,7 +14,14 @@ class Shelf extends Model
         return $this->belongsTo(ShelfStatus::class);
     }
 
-    protected $fillable = ['name'];
+    protected $fillable = [
+        'number_shelv',
+        'number_wardrobe',
+        'shelf_status_id',
+        'length',
+        'wigth',
+        'cost',
+    ];
 
     public function compositionRentals()
     {

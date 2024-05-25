@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
-    <br>
     <h1>Создание товара</h1>
     <br>
     <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
@@ -65,6 +64,15 @@
             <select class="form-control" id="status" name="status_id">
                 @foreach($statuses as $status)
                     <option value="{{ $status->id }}">{{ $status->name }}</option>
+                @endforeach
+            </select>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="application">Номер заявки:</label>
+            <select class="form-control" id="application" name="rental_application_id">
+                @foreach($applications as $application)
+                    <option value="{{ $application->id }}">№ {{ $application->id }}  от {{$application->date_application}}</option>
                 @endforeach
             </select>
         </div>

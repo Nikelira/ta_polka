@@ -4,10 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Order extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'date',
+        'user_id',
+        'order_status_id',
+        'payment_id',
+        'summa',
+    ];
+
+    protected $casts = [
+        'date' => 'datetime',
+    ];
 
     public function user()
     {
@@ -19,9 +32,7 @@ class Order extends Model
         return $this->belongsTo(OrderStatus::class);
     }
 
-    protected $fillable = ['name'];
-
-    public function orderCompositions()
+    public function compositions()
     {
         return $this->hasMany(OrderComposition::class);
     }

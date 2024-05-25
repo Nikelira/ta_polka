@@ -53,14 +53,18 @@
                             </button>
                         </div>
                     </div>
-                    <br>
-                    <div class="form-group row mb-0">
-                        <div class="col-md-8 offset-md-4">
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">
-                                Удалить аккаунт
-                            </button>
-                        </div>
-                    </div>
+                    @if(Auth::check())
+                        @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                            <br>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-8 offset-md-4">
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">
+                                        Удалить аккаунт
+                                    </button>
+                                </div>
+                            </div>            
+                        @endif
+                    @endif
                 </form>
             </div>
         </div>

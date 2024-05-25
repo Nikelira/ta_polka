@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CabinetController extends Controller
+class AboutShop extends Controller
 {
     //
     public function index(){
-        return view('cabinet');
+        return view('about_shop');
     }
 }

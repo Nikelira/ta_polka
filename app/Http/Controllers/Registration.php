@@ -26,14 +26,13 @@ class Registration extends Controller
         $request->validate([
             'surname' => 'required|string|max:50',
             'name' => 'required|string|max:50',
-            'Patronymic' => 'required|string|max:50',
+            'Partonymic' => 'required|string|max:50',
             'login'=> ['required', 'string', 'alpha_dash', 'unique:users'],
             'password'=> 'required|confirmed',
             'agree' => ['required', 'accepted'],
         ], $messages);
 
         $hashedPassword = Hash::make($request->password);
-        
         //создаем нового пользователя в бд
         $user = User::create([
             'surname' => $request->surname,
@@ -42,7 +41,7 @@ class Registration extends Controller
             'login' => $request->login,
             'password' => $hashedPassword,
             'role_id' => $request->role,
-            'account_status'=>1,
+            'account_status_id'=>1,
         ]);
 
         //проверка роли

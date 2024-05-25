@@ -63,10 +63,12 @@ class MainPage extends Controller
     public function clearCart()
     {
         session()->forget('cart');
+    return response()->json(['status' => 'Корзина очищена']);
+    }
 
-        return response()->json([
-            'message' => 'Корзина очищена',
-        ]);
+    public function getCart() {
+        $cart = session('cart', []);
+        return response()->json(['cart' => $cart]);
     }
 
     public function СreateOrder(Request $request){

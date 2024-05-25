@@ -21,41 +21,59 @@
             <div class="col-md-9">
                 <!-- Поисковик по товарам -->
                 <div class="input-group mb-3">
-                <form action="{{ route('products')}}" method="GET" class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Поиск по всем товарам" aria-label="Поиск по всем товарам" aria-describedby="button-addon2" name="search" value="{{$searchTerm}}">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit">Поиск</button>
-                        <a href="{{ route('products') }}" class="btn btn-outline-secondary">Очистить</a>
-                    </div>
-                </form>
+                    <form action="{{ route('products')}}" method="GET" class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Поиск по всем товарам" aria-label="Поиск по всем товарам" aria-describedby="button-addon2" name="search" value="{{$searchTerm}}">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit">Поиск</button>
+                            <a href="{{ route('products') }}" class="btn btn-outline-secondary">Очистить</a>
+                        </div>
+                    </form>
                 </div>
-                <div class="row">    
+                <div class="row">
                     @foreach($products as $product)
-                    <div class="col-md-3 mb-3">
-                        <div class="card h-100 d-flex flex-column" data-available-quantity="{{ $product->count }}">
-                            <div class="square-image-wrapper">
-                                <img src="{{ asset('images/')}}/{{$product->photo_path}}" class="card-img-top square-image" alt="{{ $product->name }}">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">{{ $product->name }}</h5>
-                                <p class="card-text">{{ $product->cost }} руб.</p>
-                                <form class="add-to-cart-form flex-fill">
-                                    @csrf
-                                    <input class="item_id" type="hidden" value=" {{$product->id}}">
-                                    
-                                    <label for="quantity">Количество в шт.</label>
-                                    <input type="number" min="1" class="form-control quantity-input" placeholder="Leave a comment here" id="quantity" name="quantity" value="1">
-                                    <br>
-                                    <button type="submit" class="btn btn-primary mt-auto">Добавить в корзину</button>
-                                </form>
+                        <div class="col-6 col-md-4 col-lg-3 mb-3 col-6-mobile">
+                            <div class="card product-card">
+                                <div class="square-image-wrapper">
+                                    <img src="{{ asset('images/')}}/{{$product->photo_path}}" class="card-img-top square-image" alt="{{ $product->name }}">
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">{{ $product->name }}</h5>
+                                    <p class="card-text">{{ $product->cost }} руб.</p>
+                                    @if(Auth::check())
+                                        @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                                            <form class="add-to-cart-form mt-auto" data-available-quantity="{{ $product->count }}">
+                                                @csrf
+                                                <input class="item_id" type="hidden" value="{{$product->id}}">
+                                                <label for="quantity">Количество в шт.</label>
+                                                <div class="input-group">
+                                                    <button type="button" class="btn btn-outline-secondary minus-btn">-</button>
+                                                    <input type="number" min="1" class="form-control quantity-input bg-white text-center" id="quantity" name="quantity" value="1" disabled>
+                                                    <button type="button" class="btn btn-outline-secondary plus-btn">+</button>
+                                                </div>
+                                                <br>
+                                                <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                                            </form>
+                                        @endif
+                                    @else
+                                        <form class="add-to-cart-form mt-auto" data-available-quantity="{{ $product->count }}">
+                                            @csrf
+                                            <input class="item_id" type="hidden" value="{{$product->id}}">
+                                            <label for="quantity">Количество в шт.</label>
+                                            <div class="input-group">
+                                                <button type="button" class="btn btn-outline-secondary minus-btn">-</button>
+                                                <input type="number" min="1" class="form-control quantity-input bg-white text-center" id="quantity" name="quantity" value="1" disabled>
+                                                <button type="button" class="btn btn-outline-secondary plus-btn">+</button>
+                                            </div>
+                                            <br>
+                                            <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                                        </form>
+                                    @endif
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
         </div>
     </div>
-
-    
 @endsection

@@ -12,7 +12,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
     protected $guarded = false;
-    
     /**
      * The attributes that are mass assignable.
      *
@@ -27,7 +26,6 @@ class User extends Authenticatable
         'role_id',
         'account_status_id'
     ];
-
 
     public function role()
     {

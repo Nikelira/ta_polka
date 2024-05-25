@@ -1,21 +1,17 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-8">
         <br>
         <div class="card">
             <div class="card-header">Регистрация</div>
-
             <div class="card-body">
                 <form method="POST" action="{{ route('reg.store') }}">
                     @csrf
                     <div class="form-group row">
                         <label for="surname" class="col-md-4 col-form-label text-md-right">Фамилия</label>
-
                         <div class="col-md-6">
                             <input name="surname" id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" value="{{ old('surname') }}" required autocomplete="surname" autofocus>
-
                             @error('surname')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -26,10 +22,8 @@
                     <br>
                     <div class="form-group row">
                         <label for="name" class="col-md-4 col-form-label text-md-right">Имя</label>
-
                         <div class="col-md-6">
                             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -39,12 +33,11 @@
                     </div>
                     <br>
                     <div class="form-group row">
-                        <label for="Patronymic" class="col-md-4 col-form-label text-md-right">Отчество</label>
-
+                        <label for="Partonymic" class="col-md-4 col-form-label text-md-right">Отчество</label>
                         <div class="col-md-6">
-                            <input id="Patronymic" type="text" class="form-control @error('Partonymic') is-invalid @enderror" name="Partonymic" value="{{ old('Patronymic') }}" required autocomplete="Patronymic" autofocus>
+                            <input id="Partonymic" type="text" class="form-control @error('Partonymic') is-invalid @enderror" name="Partonymic" value="{{ old('Partonymic') }}" required autocomplete="Partonymic" autofocus>
 
-                            @error('Patronymic')
+                            @error('Partonymic')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -57,11 +50,9 @@
                         <div class="col-md-6">
                         <select id="role" class="form-control @error('role') is-invalid @enderror" name="role" required>
                             <option value="">Выберите тип вашего профиля</option>
-                            <option value="1" title="Я хочу разместить свои товары" {{ old('role') == 1 ? 'selected' : '' }}>Поставщик</option>
-                            <option value="2" title="Я хочу купить товары" {{ old('role') == 2 ? 'selected' : '' }}>Покупатель</option>
+                            <option value="2" title="Я хочу разместить свои товары">Поставщик</option>
+                            <option value="1" title="Я хочу купить товары">Покупатель</option>
                         </select>
-
-
                             @error('role')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -72,7 +63,6 @@
                     <br>
                     <div class="form-group row">
                         <label for="login" class="col-md-4 col-form-label text-md-right">Логин</label>
-
                         <div class="col-md-6">
                             <input id="login" type="text" class="form-control @error('login') is-invalid @enderror" name="login" value="{{ old('login') }}" required autocomplete="login">
 
