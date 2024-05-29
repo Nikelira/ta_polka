@@ -61,7 +61,10 @@ Route::group(['middleware' => ['auth', Role::class . ':2']], function () {
 
     Route::get('/cooperation', [ApplicationRental::class, 'index'])->name('cooperation');
     Route::post('/cooperation/deselect', [ApplicationRental::class, 'deselect'])->name('cooperation.deselects');
-
+    Route::post('/cooperation/addProduct', [ApplicationRental::class, 'addProduct'])->name('cooperation.addProduct');
+    Route::put('/cooperation/{id}', [ApplicationRental::class, 'updateProduct'])->name('cooperation.update');
+    Route::delete('/cooperation/{id}', [ApplicationRental::class, 'deleteProduct'])->name('cooperation.deleteProduct');
+    Route::post('/cooperation/submit', [ApplicationRental::class, 'submitRentalRequest'])->name('cooperation.submit');
 });
 
 Route::group(['middleware' => ['auth',  Role::class . ':1,2']], function () {

@@ -84,5 +84,13 @@
             <a href="{{ route('products') }}" class="btn btn-outline-primary">Перейти в каталог</a>
         </div>
         <br>
-    </div>                    
+    </div>       
+    
+    <style>
+        .modal-backdrop.show {
+            opacity: 0; /* Делаем фон модального окна прозрачным */
+        }
+    </style>
+
 @endsection
+

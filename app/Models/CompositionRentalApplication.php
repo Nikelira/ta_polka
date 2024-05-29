@@ -9,6 +9,10 @@ class CompositionRentalApplication extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'shelf_id', 'rental_application_id'
+    ];
+    
     public function shelf()
     {
         return $this->belongsTo(Shelf::class);

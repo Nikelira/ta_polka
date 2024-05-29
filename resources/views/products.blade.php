@@ -76,4 +76,10 @@
             </div>
         </div>
     </div>
+
+    <style>
+        .modal-backdrop.show {
+            opacity: 0; /* Делаем фон модального окна прозрачным */
+        }
+    </style>
 @endsection

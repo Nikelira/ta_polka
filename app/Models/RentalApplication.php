@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class RentalApplication extends Model
 {
     use HasFactory;
-    protected $fillable = ['name'];
+
+    protected $fillable = [
+        'date_application', 'user_id', 'application_status_id', 'message'
+    ];
 
     public function products()
     {
@@ -25,9 +28,9 @@ class RentalApplication extends Model
         return $this->belongsTo(ApplicationStatus::class);
     }
 
-    public function compositionRentals()
+    public function compositions()
     {
-        return $this->hasMany(CompositionRental::class);
+        return $this->hasMany(CompositionRentalApplication::class);
     }
 
     public function rentalContracts()

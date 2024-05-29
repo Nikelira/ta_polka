@@ -16,10 +16,6 @@
             height: 400px;
             width: 100%;
         }
-
-        .modal-backdrop.show {
-            opacity: 0; /* Делаем фон модального окна прозрачным */
-        }
     </style>
 </head>
 <body>
@@ -315,6 +311,7 @@ function updateCartDisplay(cart) {
 }
 </script>
 
+@stack('scripts')
 </body>
 </html>
 

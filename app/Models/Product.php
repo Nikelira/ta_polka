@@ -8,7 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    
+    protected $fillable = [
+        'name', 
+        'product_status_id', 
+        'rental_application_id', 
+        'product_category_id', 
+        'description', 
+        'photo_path', 
+        'cost', 
+        'message', 
+        'count'
+    ];
     public function category()
     {
         return $this->belongsTo(ProductCategory::class, 'product_category_id');
@@ -23,8 +33,6 @@ class Product extends Model
     {
         return $this->belongsTo(RentalApplication::class);
     }
-
-    protected $fillable = ['name'];
 
     public function orderCompositions()
     {
