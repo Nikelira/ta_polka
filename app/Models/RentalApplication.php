@@ -37,4 +37,9 @@ class RentalApplication extends Model
     {
         return $this->hasMany(RentalContracts::class);
     }
+
+    public function shelves()
+    {
+        return $this->belongsToMany(Shelf::class, 'composition_rental_applications', 'rental_application_id', 'shelf_id');
+    }
 }

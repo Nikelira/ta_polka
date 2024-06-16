@@ -17,14 +17,23 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        $validatedData = $request->validate([
-            'surname' => 'required|string|max:50',
-            'name' => 'required|string|max:50',
-            'Partonymic' => 'required|string|max:50',
-            'login' => 'required|string|max:50|unique:users,login,' . $user->id,
-        ]);
+        if ($request->filled('surname')) {
+            $validatedData = $request->validate([
+                'surname' => 'required|string|max:50',
+                'name' => 'required|string|max:50',
+                'Partonymic' => 'required|string|max:50',
+                'login' => 'required|string|max:50|unique:users,login,' . $user->id,
+            ]);
+            $user->update($validatedData);
+        }
 
-        $user->update($validatedData);
+        if ($request->filled('login')) {
+            $validatedData = $request->validate([
+                'login' => 'required|string|max:50|unique:users,login,' . $user->id,
+            ]);
+            $user->update($validatedData);
+        }
+
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));

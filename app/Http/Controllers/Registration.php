@@ -18,9 +18,12 @@ class Registration extends Controller
     public function store(Request $request){
         //сообщение об ошибках
         $messages = [
-            'login.required'  => 'Выберите другой логин',
-            'password.required'  => 'Пароль должен совпадать',
-            'agree.required'  => 'Необходимо подтвердить согласие на обработку данных',
+            'surname.max'=> 'Максимальная длина фамилии - 50 символов',
+            'name.max'=> 'Максимальная длина имени - 50 символов',
+            'Partonymic.max'=> 'Максимальная длина отчества - 50 символов',
+            'login.unique'  => 'Данный логин уже используется',
+            'password.confirmed'  => 'Пароли должны совпадать',
+            'agree.accepted'  => 'Необходимо подтвердить согласие на обработку данных',
         ];
         //валидация значений
         $request->validate([
@@ -44,13 +47,8 @@ class Registration extends Controller
             'account_status_id'=>1,
         ]);
 
-        //проверка роли
-        if ($user->role_id == 1) {
-            Auth::login($user);
-            return redirect()->route('postavshik.index');
-        } elseif ($user->role_id == 2) {
-            Auth::login($user);
-            return redirect()->route('potrebitel.index');
-        }
+        Auth::login($user);
+
+        return redirect()->route('home');
     }
 }

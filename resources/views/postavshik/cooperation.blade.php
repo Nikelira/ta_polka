@@ -33,10 +33,8 @@
             </div>
         @empty
             <p>У вас нет выбранных полок</p>
-        @endforelse
-    </div>   
-    
-    <div class="row mb-5">
+        @endforelse 
+
         <div class="col-12">
             <h2>Ваши товары</h2>
             <button class="btn btn-primary" data-toggle="modal" data-target="#addProductModal">Добавить товар</button>
@@ -44,8 +42,8 @@
             <br>
         </div>
         @forelse (session('products', []) as $product)
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
+            <div class="col-6 col-md-3 mb-3 col-6-mobile">
+                <div class="card product-card">
                     <img src="{{ asset('images/' . $product['photo']) }}" class="card-img-top" alt="{{ $product['name'] }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $product['name'] }}</h5>
@@ -58,6 +56,7 @@
                     <button class="btn btn-danger delete-product-btn" data-product-id="{{ $product['id'] }}">Удалить</button>
                 </div>
             </div>
+                   
         @empty
             <p>У вас нет добавленных товаров</p>
         @endforelse
@@ -66,7 +65,7 @@
     @if (!empty(session('products', [])) && !empty($selectedShelvesObjects))
         <div class="row mb-5">
             <div class="col-12 text-center">
-                <button class="btn btn-success" onclick="submitRentalRequest()">Оформить заявку на аренду полок</button>
+                <button class="btn btn-primary" onclick="submitRentalRequest()">Оформить заявку на аренду полок</button>
             </div>
         </div>
     @endif
@@ -169,6 +168,11 @@
         </div>
     </div>
 </div>
+<style>
+    h1{
+        text-align:center;
+    }
+</style>
 @push('scripts')
 <script>
 function deselectShelf(shelfId) {

@@ -31,7 +31,7 @@
                 </div>
                 <div class="row">
                     @foreach($products as $product)
-                        <div class="col-6 col-md-4 col-lg-3 mb-3 col-6-mobile">
+                        <div class="col-6 col-md-4 mb-3 col-6-mobile">
                             <div class="card product-card">
                                 <div class="square-image-wrapper">
                                     <img src="{{ asset('images/')}}/{{$product->photo_path}}" class="card-img-top square-image" alt="{{ $product->name }}">
@@ -41,31 +41,19 @@
                                     <p class="card-text">{{ $product->cost }} руб.</p>
                                     @if(Auth::check())
                                         @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                                            <form class="add-to-cart-form mt-auto" data-available-quantity="{{ $product->count }}">
+                                            <form class="add-to-cart-form mt-auto">
                                                 @csrf
                                                 <input class="item_id" type="hidden" value="{{$product->id}}">
-                                                <label for="quantity">Количество в шт.</label>
-                                                <div class="input-group">
-                                                    <button type="button" class="btn btn-outline-secondary minus-btn">-</button>
-                                                    <input type="number" min="1" class="form-control quantity-input bg-white text-center" id="quantity" name="quantity" value="1" disabled>
-                                                    <button type="button" class="btn btn-outline-secondary plus-btn">+</button>
-                                                </div>
-                                                <br>
-                                                <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                                                <input type="hidden" name="quantity" value="1">
+                                                <button type="submit" class="btn btn-primary btn-block">Добавить в корзину</button>
                                             </form>
                                         @endif
                                     @else
-                                        <form class="add-to-cart-form mt-auto" data-available-quantity="{{ $product->count }}">
+                                        <form class="add-to-cart-form mt-auto">
                                             @csrf
                                             <input class="item_id" type="hidden" value="{{$product->id}}">
-                                            <label for="quantity">Количество в шт.</label>
-                                            <div class="input-group">
-                                                <button type="button" class="btn btn-outline-secondary minus-btn">-</button>
-                                                <input type="number" min="1" class="form-control quantity-input bg-white text-center" id="quantity" name="quantity" value="1" disabled>
-                                                <button type="button" class="btn btn-outline-secondary plus-btn">+</button>
-                                            </div>
-                                            <br>
-                                            <button type="submit" class="btn btn-primary">Добавить в корзину</button>
+                                            <input type="hidden" name="quantity" value="1">
+                                            <button type="submit" class="btn btn-primary btn-block">Добавить в корзину</button>
                                         </form>
                                     @endif
                                 </div>

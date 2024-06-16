@@ -92,7 +92,7 @@
                                     @if ($order->order_status_id == 1)
                                         <form action="{{ route('orders_prodavec.cancel', $order->id) }}" method="POST" onsubmit="return confirmAction('Отказаться от заказа?');">
                                             @csrf
-                                            <button type="submit" class="btn btn-danger">Отказ</button>
+                                            <button type="submit" class="btn btn-danger">Отказать</button>
                                         </form>
                                     @endif
                                     @if($order->order_status_id == 2)

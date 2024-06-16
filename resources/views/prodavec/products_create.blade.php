@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
 <div class="container">
+<br>
+
     <h1>Создание товара</h1>
     <br>
     <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">

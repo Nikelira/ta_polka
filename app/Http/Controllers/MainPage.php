@@ -34,23 +34,19 @@ class MainPage extends Controller
                 $cart = [];
             }
 
-            if (isset($cart[$products->id])) {
-                $cart[$products->id] += $quantity;
-            } else {
-                $cart[$products->id] = $quantity;
-            }
+            $cart[$products->id] = $quantity;
 
             session()->put('cart', $cart);
 
             $cartContents = session('cart', []);
 
             return response()->json([
-                'message' => 'Блюдо добавлено в корзину',
+                'message' => 'Товар добавлен в корзину',
                 'cart' => $cartContents,
             ]);
         } else {
             return response()->json([
-                'message' => 'Блюдо не найдено',
+                'message' => 'Товар не найден',
             ], 404);
         }
     }
@@ -113,6 +109,12 @@ class MainPage extends Controller
         $cart = Session::get('cart', []);
 
         return view('main',  compact('products', 'categories', 'cart'));
+    }
+
+    public function checkCartItems(Request $request)
+    {
+        $cart = session('cart', []);
+        return response()->json(['cart' => $cart]);
     }
 
 }

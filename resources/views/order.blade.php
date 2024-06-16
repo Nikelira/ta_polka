@@ -8,6 +8,8 @@
             {{ session('success') }}
         </div>
     @endif
+
+    <br>
     
     <div id="cart-container">
         @if(empty($cart))
@@ -26,22 +28,24 @@
                         $cost = $product->cost * $quantity;
                         $total += $cost;
                     @endphp
-                    <div class="col-md-4 mb-4" id="cart-item-{{ $product->id }}">
-                        <div class="card h-100">
-                            <img src="{{ asset('images/' . $product->photo_path) }}" class="card-img-top" alt="{{ $product->name }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $product->name }}</h5>
-                                <p class="card-text">Цена за единицу: {{ $product->cost }} руб.</p>
+                    <div class="col-6 col-md-3 mb-3 col-6-mobile" id="cart-item-{{ $product->id }}">
+                    <div class="card product-card">
+                        <div class="square-image-wrapper">
+                            <img src="{{ asset('images/' . $product->photo_path) }}" class="card-img-top square-image" alt="{{ $product->name }}">
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ $product->name }}</h5>
+                                <p class="card-text">Цена за шт: {{ $product->cost }} руб.</p>
                                 <div class="d-flex align-items-center">
                                     <button class="btn btn-secondary" onclick="updateCart('{{ $product->id }}', 'decrease')">-</button>
-                                    <p class="mx-3 mb-0">Количество: <span id="quantity-{{ $product->id }}">{{ $quantity }}</span></p>
+                                    <span class="mx-3 mb-0">Количество: <span id="quantity-{{ $product->id }}">{{ $quantity }}</span></span>
                                     <button class="btn btn-secondary" onclick="updateCart('{{ $product->id }}', 'increase')">+</button>
                                 </div>
                                 <p class="card-text mt-2">Сумма: <span id="cost-{{ $product->id }}">{{ $cost }}</span> руб.</p>
                                 <button class="btn btn-danger" onclick="removeFromCart('{{ $product->id }}')">Удалить</button>
-                            </div>
                         </div>
                     </div>
+                </div>
                 @endforeach
             </div>
 
@@ -56,26 +60,35 @@
                 </form>
             </div>
 
+            <br>
+            <br>
             <form method="POST" action="{{ route('checkout.store') }}" id="checkout-form">
                 @csrf
-                <h3>Пункт получения</h3>
-                <p>г. Пермь, ул. Ленина 76, этаж 2</p>
-
-                <h3>Способ оплаты</h3>
-                <div class="form-group">
-                    <label for="payment">Выберите способ оплаты</label>
-                    <select class="form-control" id="payment" name="payment_id">
-                        @foreach($payments as $payment)
-                            <option value="{{ $payment->id }}">{{ $payment->name }}</option>
-                        @endforeach
-                    </select>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Пункт получения</h3>
+                        <p>г. Пермь, ул. Ленина 76, этаж 2</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>Способ оплаты</h3>
+                        <div class="form-group">
+                            <select class="form-control" id="payment" name="payment_id">
+                                @foreach($payments as $payment)
+                                    <option value="{{ $payment->id }}">{{ $payment->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Оформить заказ</button>
+                <br>
+                <div class="text-center">
+                <button type="submit" class="btn btn-primary">Оформить заказ</button></div>
             </form>
         @endif
     </div>
 </div>
+
 
 <script>
 function updateCart(productId, action) {
@@ -137,4 +150,11 @@ $(document).ready(function() {
     }
 });
 </script>
+
+<style>
+    h1{
+        text-align:center;
+    }
+    
+</style>
 @endsection

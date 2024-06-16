@@ -17,6 +17,8 @@ use App\Http\Controllers\Orders;
 use App\Http\Controllers\AboutShop;
 use App\Http\Controllers\OrderProdavec;
 use App\Http\Controllers\ApplicationRental;
+use App\Http\Controllers\ContractMeneger;
+use App\Http\Controllers\ContractPostavshik;
 use App\Http\Middleware\Role;
 
 Route::get('/', [MainPage::class, 'index'])->name('home');
@@ -24,6 +26,7 @@ Route::post('/add_to_cart', [MainPage::class, 'addToCart'])->name('add_to_cart')
 Route::get('/clear-cart', [MainPage::class, 'clearCart'])->name('clearCart');
 Route::get('/dish/{id}', [MainPage::class, 'getDishInfo'])->name('product_ids');
 Route::get('/get_cart', [MainPage::class, 'getCart'])->name('get_cart');
+Route::get('/check_cart_items', [MainPage::class, 'checkCartItems'])->name('check_cart_items');
 
 Route::get('/create-order', [MainPage::class, 'СreateOrder'])->name('main.createOrder');//Создание бронирования
 
@@ -55,7 +58,6 @@ Route::group(['middleware' => ['auth', Role::class . ':1']], function () {
 });
 
 Route::group(['middleware' => ['auth', Role::class . ':2']], function () {
-    Route::get('/main_postavshik', [Postavshic::class, 'index'])->name('postavshik.index');
     Route::post('/shelf/select', [ShelfController::class, 'selectShelf'])->name('cooperation.select');
     Route::post('/shelf/deselect', [ShelfController::class, 'deselectShelf'])->name('cooperation.deselect');
 
@@ -65,6 +67,14 @@ Route::group(['middleware' => ['auth', Role::class . ':2']], function () {
     Route::put('/cooperation/{id}', [ApplicationRental::class, 'updateProduct'])->name('cooperation.update');
     Route::delete('/cooperation/{id}', [ApplicationRental::class, 'deleteProduct'])->name('cooperation.deleteProduct');
     Route::post('/cooperation/submit', [ApplicationRental::class, 'submitRentalRequest'])->name('cooperation.submit');
+    
+    Route::get('/application', [Postavshic::class, 'index'])->name('postavshik.index');
+    Route::get('/application/{id}', [Postavshic::class, 'show'])->name('postavshik.show');
+    Route::post('/application/delete', [Postavshic::class, 'delete'])->name('application.delete');
+
+    Route::get('/postavshik/contracts', [ContractPostavshik::class, 'index'])->name('contracts_postavshik.index');
+
+    
 });
 
 Route::group(['middleware' => ['auth',  Role::class . ':1,2']], function () {
@@ -81,16 +91,31 @@ Route::group(['middleware' => Role::class . ':3'], function () {
     Route::put('/prodavec/products/{product}', [Prodavec::class,'update'])->middleware('auth')->name('products.update');
     Route::delete('/prodavec/products/{id}', [Prodavec::class, 'destroy'])->name('products.destroy');
 
-
     Route::get('/prodavec/orders',[OrderProdavec::class,'index'])->name('orders_prodavec.index');
     Route::post('/prodavec/orders/{orderId}/confirm', [OrderProdavec::class, 'confirm'])->name('orders_prodavec.confirm');
     Route::post('/prodavec/orders/{orderId}/cancel', [OrderProdavec::class, 'cancel'])->name('orders_prodavec.cancel');
     Route::post('/prodavec/orders/{orderId}/finish', [OrderProdavec::class, 'finish'])->name('orders_prodavec.finish');
 
+
 });
 
 Route::group(['middleware' => Role::class . ':4'], function () {
-    Route::get('/main_meneger', [Meneger::class, 'index'])->middleware('auth')->name('meneger.index');
+    Route::get('/manager/applications', [Meneger::class, 'index'])->name('application.index');
+    Route::get('/manager/applications/{id}', [Meneger::class, 'show'])->name('application.show');
+    Route::post('/manager/applications/{id}/approve', [Meneger::class, 'approve'])->name('manager.rental-applications.approve');
+    Route::post('/manager/applications/{id}/reject', [Meneger::class, 'reject'])->name('manager.rental-applications.reject');
+
+    Route::get('/manager/contract', [ContractMeneger::class,'index'])->name('contracts.index');
+    Route::get('/manager/contracts/create', [ContractMeneger::class, 'create'])->name('contracts.create');
+    Route::get('/manager/contracts/application/{id}', [ContractMeneger::class, 'getApplicationData'])->name('contracts.applicationData');
+    // Маршрут для сохранения нового договора
+    Route::post('/manager/contracts', [ContractMeneger::class, 'store'])->name('contracts.store');
+    // Маршруты для просмотра и редактирования существующего договора
+    Route::get('/manager/contracts/{id}', [ContractMeneger::class, 'show'])->name('contracts.show');
+    Route::get('/manager/contracts/{id}/edit', [ContractMeneger::class, 'edit'])->name('contracts.edit');
+    Route::put('/manager/contracts/{id}', [ContractMeneger::class, 'update'])->name('contracts.update');
+    Route::get('/manager/contracts/download/{id}', [ContractMeneger::class, 'download'])->name('contracts.download');
+
 });
 
 Route::group(['middleware' => Role::class . ':5'], function () {

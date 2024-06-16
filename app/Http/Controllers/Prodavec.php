@@ -17,7 +17,10 @@ class Prodavec extends Controller
 
     public function index1()
     {
-        $products = Product::all();
+        $products = Product::where('product_status_id', 1)
+        ->orWhere('product_status_id', 2)
+        ->get();
+
         return view('prodavec.product', compact('products'));
     }
 

@@ -48,23 +48,7 @@ class Auther extends Controller
         }
 
         Auth::login($user);
-        //сделать проверку ролей
-
-        if ($user->role_id === 1) {
-            return redirect()->back();
-        } elseif ($user->role_id === 2) {
-            return redirect()->back();
-        }
-        elseif ($user->role_id === 3){
-            return redirect()->route('prodavec.index');
-        }
-        elseif ($user->role_id === 4){
-            return redirect()->route('meneger.index');
-        }
-        elseif ($user->role_id === 5){
-            return redirect()->route('administrator.index');
-        }
-        //проверка сотрудников
+        return redirect()->back();
     }  
 
     public function logout(){

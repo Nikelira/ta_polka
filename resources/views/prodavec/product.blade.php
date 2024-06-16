@@ -1,6 +1,7 @@
 @extends('layouts.app')
+
 @section('content')
-<div class="container">
+<div class="container-fluid"> <!-- Используем container-fluid для максимального использования пространства -->
     <br>
     <div class="card-header d-flex justify-content-between">
         <span class="align-self-center">Список товаров</span>
@@ -9,17 +10,17 @@
         </a>
     </div>
     <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th>Наименование</th>
-                    <th>Фотография</th>
-                    <th>Описание</th>
+                    <th>Фото</th>
+                    <th class="d-none d-md-table-cell">Описание</th> <!-- Скрываем на маленьких экранах -->
                     <th>Цена</th>
-                    <th>Количество</th>
-                    <th>Категория</th>
-                    <th>Статус</th>
-                    <th>Заявка&nbsp;№</th>
+                    <th>Кол-во</th> <!-- Сокращаем текст -->
+                    <th class="d-none d-lg-table-cell">Категория</th> <!-- Скрываем на маленьких экранах -->
+                    <th class="d-none d-lg-table-cell">Статус</th> <!-- Скрываем на маленьких экранах -->
+                    <th class="d-none d-xl-table-cell">Заявка №</th> <!-- Скрываем на маленьких экранах -->
                     <th>Действия</th>
                 </tr>
             </thead>
@@ -27,13 +28,21 @@
             @foreach($products as $product)
                 <tr>
                     <td>{{ $product->name }}</td>
-                    <td><img src="{{ asset('images/')}}/{{$product->photo_path}}" alt="{{$product->name}}" style="max-width: 100px;"></td>
-                    <td>{{ $product->description }}</td>
+                    <td>
+                        <img src="{{ asset('images/')}}/{{$product->photo_path}}" 
+                             alt="{{$product->name}}" 
+                             style="max-width: 50px; max-height: 50px; object-fit: cover;"> <!-- Уменьшаем размер изображения -->
+                    </td>
+                    <td class="d-none d-md-table-cell text-truncate" style="max-width: 150px;"> <!-- Ограничиваем ширину -->
+                        {{ $product->description }}
+                    </td>
                     <td>{{ $product->cost }}</td>
                     <td>{{ $product->count }}</td>
-                    <td>{{ $product->category->name }}</td>
-                    <td>{{ $product->status->name }}</td>
-                    <td>{{ $product->rental_application_id }} от {{ $product->rentalApplication->date_application }}</td>
+                    <td class="d-none d-lg-table-cell">{{ $product->category->name }}</td>
+                    <td class="d-none d-lg-table-cell">{{ $product->status->name }}</td>
+                    <td class="d-none d-xl-table-cell text-truncate" style="max-width: 150px;"> <!-- Ограничиваем ширину -->
+                        {{ $product->rental_application_id }} от {{ $product->rentalApplication->date_application }}
+                    </td>
                     <td>
                         <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm">Редактировать</a>
                         <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirmDeleteModal" data-id="{{ $product->id }}">Удалить</button>
@@ -69,5 +78,4 @@
     </div>
   </div>
 </div>
-
 @endsection

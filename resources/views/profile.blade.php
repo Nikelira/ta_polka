@@ -11,27 +11,31 @@
                 <form method="POST" action="{{ route('profile.update') }}">
                     @csrf
                     @method('PUT')
-                    <div class="form-group row">
-                        <label for="surname" class="col-md-4 col-form-label text-md-right">Фамилия</label>
-                        <div class="col-md-6">
-                            <input id="surname" type="text" class="form-control" name="surname" value="{{ $user->surname }}" required autocomplete="surname" autofocus>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group row">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">Имя</label>
-                        <div class="col-md-6">
-                            <input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="form-group row">
-                        <label for="Partonymic" class="col-md-4 col-form-label text-md-right">Отчество</label>
-                        <div class="col-md-6">
-                            <input id="Partonymic" type="text" class="form-control" name="Partonymic" value="{{ $user->Partonymic }}" required autocomplete="Partonymic" autofocus>
-                        </div>
-                    </div>
-                    <br>
+                    @if(Auth::check())
+                        @if(Auth::user()->role_id == 1||Auth::user()->role_id == 2)      
+                            <div class="form-group row">
+                                <label for="surname" class="col-md-4 col-form-label text-md-right">Фамилия</label>
+                                <div class="col-md-6">
+                                    <input id="surname" type="text" class="form-control" name="surname" value="{{ $user->surname }}" required autocomplete="surname" autofocus>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right">Имя</label>
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="form-group row">
+                                <label for="Partonymic" class="col-md-4 col-form-label text-md-right">Отчество</label>
+                                <div class="col-md-6">
+                                    <input id="Partonymic" type="text" class="form-control" name="Partonymic" value="{{ $user->Partonymic }}" required autocomplete="Partonymic" autofocus>
+                                </div>
+                            </div>
+                            <br>
+                        @endif
+                    @endif
                     <div class="form-group row">
                         <label for="login" class="col-md-4 col-form-label text-md-right">Логин</label>
                         <div class="col-md-6">
